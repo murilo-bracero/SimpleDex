@@ -15,9 +15,14 @@ public class Application {
         ArrayList<Pokemon> pkmns = new ArrayList<>();
 
         try {
-            pkmns = Pokemon.getFromCsvFile(null);
+            pkmns = Pokemon.getFromCsvFile("Resources/pkmn.csv");
         } catch (IOException e) {
-            e.printStackTrace();
+            try{
+                pkmns = Pokemon.getFromCsvFile("src/resources/pkmn.csv");
+            }catch (IOException ex) {
+                System.out.println("Arquivo CSV não encontrado");
+                System.exit(1);
+            }
         }
 
         AvlTree tree = new AvlTree();
@@ -26,10 +31,11 @@ public class Application {
             tree.insert(pkmn);
         }
 
-        int id = UserActionController.getUserInputNumber("Digite o ID de um Pokémon (de 1 a 863): \n");
+        int id = UserActionController.getUserInputNumber("Digite o ID de um Pokémon (de 1 a 863):");
 
         if(id < 1 || id > 863){
             System.out.println("Este Pokémon não existe.");
+            System.exit(0);
         }
 
         Pokemon p = tree.search(id);

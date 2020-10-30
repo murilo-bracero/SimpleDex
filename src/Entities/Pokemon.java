@@ -59,12 +59,8 @@ public class Pokemon {
         }
     }
 
-    public static ArrayList<Pokemon> getFromCsvFile(File file) throws IOException {
-        if(file == null){
-            file = new File("src/Resources/pkmn.csv");
-        }
-
-        System.out.println(file.getAbsolutePath());
+    public static ArrayList<Pokemon> getFromCsvFile(String path) throws IOException {
+        File file = new File(path);
 
         Stream<String> reader = new BufferedReader(new FileReader(file.getAbsolutePath())).lines().skip(1);
         ArrayList<Pokemon> pkmns = new ArrayList<>();
